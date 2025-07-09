@@ -4,33 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nithish Kumar G | Web Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6366f1',
-                        secondary: '#10b981',
-                        dark: '#0f172a',
-                        light: '#f8fafc'
-                    },
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                        montserrat: ['Montserrat', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             color: #f1f5f9;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         
         .header-bg {
@@ -52,7 +42,7 @@
             left: 0;
             width: 50px;
             height: 4px;
-            background: #6366f1;
+            background: var(--primary);
             border-radius: 2px;
         }
         
@@ -65,7 +55,7 @@
         .skill-progress {
             height: 100%;
             border-radius: 4px;
-            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(90deg, var(--primary) 0%, #8b5cf6 100%);
         }
         
         .timeline-item {
@@ -82,7 +72,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #6366f1;
+            background: var(--primary);
         }
         
         .timeline-item::after {
@@ -144,10 +134,50 @@
             top: -20%;
             left: -20%;
         }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .profile-placeholder {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed, #ec4899);
+            background-size: 200% 200%;
+            animation: gradient-shift 8s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- Header -->
+    <!-- Header with Mobile Toggle -->
     <header class="header-bg fixed w-full z-50 py-4 shadow-lg">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div>
@@ -163,11 +193,42 @@
                     <li><a href="#contact" class="text-slate-300 hover:text-white transition">Contact</a></li>
                 </ul>
             </nav>
-            <button class="md:hidden text-white">
+            <button id="mobile-menu-button" class="md:hidden text-white">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-slate-900 z-50 p-6 shadow-2xl">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-xl font-bold">Menu</h2>
+            <button id="close-menu" class="text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <ul class="space-y-6">
+            <li><a href="#about" class="block text-lg text-slate-300 hover:text-white py-2">About</a></li>
+            <li><a href="#skills" class="block text-lg text-slate-300 hover:text-white py-2">Skills</a></li>
+            <li><a href="#experience" class="block text-lg text-slate-300 hover:text-white py-2">Experience</a></li>
+            <li><a href="#education" class="block text-lg text-slate-300 hover:text-white py-2">Education</a></li>
+            <li><a href="#achievements" class="block text-lg text-slate-300 hover:text-white py-2">Achievements</a></li>
+            <li><a href="#contact" class="block text-lg text-slate-300 hover:text-white py-2">Contact</a></li>
+        </ul>
+        <div class="mt-12 pt-6 border-t border-slate-800">
+            <div class="flex space-x-4">
+                <a href="tel:+919790446280" class="bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fas fa-phone text-primary"></i>
+                </a>
+                <a href="mailto:itznithish@gmail.com" class="bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fas fa-envelope text-primary"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nithish-kumarg-679a25216" target="_blank" class="bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fab fa-linkedin-in text-primary"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="pt-32 pb-20 px-4">
@@ -179,22 +240,25 @@
                         <span class="text-primary">Web Developer</span> | Student at Velammal College of Engineering and Technology
                     </div>
                     <p class="text-lg text-slate-300 mb-8 max-w-xl">
-                        Passionate web developer with experiencein modern JavaScript frameworks, responsive design, and creating engaging user experiences.
+                        Passionate web developer with expertise in modern JavaScript frameworks, responsive design, and creating engaging user experiences.
                     </p>
-                    <div class="flex space-x-4">
+                    <div class="flex flex-wrap gap-4">
                         <a href="#contact" class="shine-effect bg-primary text-white px-6 py-3 rounded-full font-semibold transition hover:bg-indigo-700">Hire Me</a>
                         <a href="#achievements" class="shine-effect bg-slate-700 text-white px-6 py-3 rounded-full font-semibold transition hover:bg-slate-600">View Awards</a>
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
                     <div class="relative">
-                        <div class="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-primary to-secondary rounded-full overflow-hidden">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden floating">
                             <div class="w-full h-full flex items-center justify-center">
-                                <div class="bg-gray-200 border-2 border-dashed rounded-xl w-56 h-56 md:w-72 md:h-72 rounded-full" />
+                                <div class="profile-placeholder border-2 border-dashed rounded-xl w-56 h-56 md:w-72 md:h-72 rounded-full" />
                             </div>
                         </div>
                         <div class="absolute -bottom-4 -right-4 bg-dark px-6 py-3 rounded-full border border-slate-700 shadow-lg">
                             <span class="text-primary font-bold">5+</span> Projects
+                        </div>
+                        <div class="absolute -top-4 -left-4 bg-secondary text-dark px-4 py-2 rounded-full font-bold shadow-lg bounce">
+                            <i class="fas fa-trophy mr-2"></i>1st Prize Winner
                         </div>
                     </div>
                 </div>
@@ -209,7 +273,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div>
                     <p class="text-lg mb-6">
-                        I'm a passionate web developer and IT student at Velammal College of Engineering and Technology. With experience in modern web technologies, I create engaging digital experiences that solve real-world problems.
+                        I'm a passionate web developer and IT student at Velammal College of Engineering and Technology. With expertise in modern web technologies, I create engaging digital experiences that solve real-world problems.
                     </p>
                     <p class="text-lg mb-6">
                         My journey in tech started early, and I've since developed skills across frontend development, AI applications, and embedded systems. I thrive on turning innovative ideas into functional solutions.
@@ -558,7 +622,15 @@
                         </a>
                     </div>
                     <div class="mt-12">
-                       
+                        <h3 class="text-xl font-bold mb-4">Languages</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-slate-800 px-4 py-2 rounded-lg">
+                                <span class="text-primary font-bold">English:</span> Professional Working
+                            </div>
+                            <div class="bg-slate-800 px-4 py-2 rounded-lg">
+                                <span class="text-primary font-bold">Tamil:</span> Native or Bilingual
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card p-8">
@@ -606,6 +678,30 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close menu when clicking on links
+        const menuLinks = document.querySelectorAll('#mobile-menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -613,6 +709,33 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+        
+        // Add active class to nav links when scrolling
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('header nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-white');
+                link.classList.add('text-slate-300');
+                
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.remove('text-slate-300');
+                    link.classList.add('text-white');
+                }
             });
         });
     </script>
